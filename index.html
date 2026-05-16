@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaan Design – Interior | Exterior | Landscaping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --bg2: #f2ede6;
+    --bg3: #ede5da;
+    --surface: #ffffff;
+    --gold: #9c7a52;
+    --gold-light: #b8956a;
+    --gold-dim: rgba(156,122,82,0.12);
+    --text: #2c2218;
+    --text-muted: #7a6a58;
+    --text-dim: #a89a8a;
+    --border: rgba(156,122,82,0.25);
+    --border-subtle: rgba(156,122,82,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(250,248,245,0.92);
+    box-shadow: 0 1px 24px rgba(156,122,82,0.08);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: padding .3s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: .25em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color .3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+    transform: scaleX(0); transition: transform .3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+    padding: .6rem 1.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    transition: background .3s, color .3s;
+  }
+  .nav-cta:hover { background: var(--gold); color: #fff; }
+
+  /* Hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; }
+  .hamburger span { display: block; width: 24px; height: 1px; background: var(--gold); transition: .3s; }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; background: var(--bg);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem; z-index: 150;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; color: var(--text);
+    text-decoration: none; letter-spacing: .1em;
+    transition: color .3s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-close { position: absolute; top: 1.4rem; right: 2rem; font-size: 2rem; color: var(--gold); cursor: pointer; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 2rem;
+    background: linear-gradient(160deg, #fdfaf6 0%, #f5ede0 50%, #ede3d2 100%);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(156,122,82,.08) 0%, transparent 50%),
+      linear-gradient(to bottom, rgba(250,248,245,.15) 0%, rgba(250,248,245,.05) 50%, rgba(250,248,245,1) 100%);
+    z-index: 1;
+  }
+  /* Decorative lines */
+  .hero-lines {
+    position: absolute; inset: 0; z-index: 1;
+    overflow: hidden; pointer-events: none;
+  }
+  .hero-lines::before, .hero-lines::after {
+    content: '';
+    position: absolute;
+    border: 1px solid var(--border);
+  }
+  .hero-lines::before {
+    top: 15%; left: 8%; right: 8%; bottom: 15%;
+    animation: linePulse 6s ease-in-out infinite;
+  }
+  .hero-lines::after {
+    top: 20%; left: 12%; right: 12%; bottom: 20%;
+    animation: linePulse 6s ease-in-out infinite .5s;
+  }
+  @keyframes linePulse {
+    0%,100% { opacity: .3; }
+    50% { opacity: .7; }
+  }
+
+  /* Ambient blobs */
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; pointer-events: none;
+    animation: blobDrift 12s ease-in-out infinite;
+  }
+  .blob-1 { width: 500px; height: 500px; background: rgba(156,122,82,.10); top: -100px; right: -100px; }
+  .blob-2 { width: 400px; height: 400px; background: rgba(188,155,100,.08); bottom: 50px; left: -80px; animation-delay: 4s; }
+  @keyframes blobDrift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,-20px); } }
+
+  .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; }
+  .hero-eyebrow {
+    font-size: .72rem; letter-spacing: .4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; flex: 0 0 40px; height: 1px; background: var(--gold); opacity: .5;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp .8s ease .15s both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-tagline {
+    font-size: clamp(.9rem, 1.8vw, 1.1rem);
+    color: var(--text-muted);
+    max-width: 520px; margin: 0 auto 3rem;
+    letter-spacing: .04em;
+    animation: fadeUp .8s ease .3s both;
+  }
+  .hero-actions {
+    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp .8s ease .45s both;
+  }
+  .btn-primary {
+    display: inline-block; padding: .85rem 2.8rem;
+    background: var(--gold); color: #fff;
+    font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+    text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 500;
+    transition: background .3s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    display: inline-block; padding: .85rem 2.8rem;
+    border: 1px solid var(--border); color: var(--text-muted);
+    font-size: .75rem; letter-spacing: .2em; text-transform: uppercase;
+    text-decoration: none; font-family: 'Outfit', sans-serif;
+    transition: border-color .3s, color .3s, transform .2s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* Scroll indicator */
+  .scroll-ind {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    animation: fadeUp 1s ease 1s both;
+  }
+  .scroll-ind span { font-size: .65rem; letter-spacing: .25em; text-transform: uppercase; color: var(--text-dim); }
+  .scroll-line {
+    width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollDrop 2s ease-in-out infinite;
+  }
+  @keyframes scrollDrop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 2.5rem 4rem;
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+    box-shadow: 0 2px 20px rgba(156,122,82,0.06);
+  }
+  .stat {
+    flex: 1; min-width: 160px; text-align: center;
+    padding: 0 2rem;
+    border-right: 1px solid var(--border-subtle);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); margin-top: .4rem; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 7rem 4rem; }
+  .section-tag {
+    font-size: .68rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-tag::before { content: ''; flex: 0 0 30px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 300; line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT ── */
+  #about { max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 6rem; align-items: center;
+    margin-top: 4rem;
+  }
+  .about-visual {
+    position: relative; aspect-ratio: 3/4; max-width: 380px;
+  }
+  .about-img-frame {
+    position: absolute; inset: 0;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .about-img-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: contrast(1.05) brightness(.95);
+    transition: transform .6s ease;
+  }
+  .about-img-frame:hover img { transform: scale(1.04); }
+  .about-accent {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    border: 1px solid var(--gold); opacity: .3;
+  }
+  .about-accent2 {
+    position: absolute; top: -12px; left: -12px;
+    width: 80px; height: 80px;
+    border: 1px solid var(--gold); opacity: .2;
+  }
+  .about-text p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1rem; }
+  .about-services {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;
+  }
+  .service-pill {
+    padding: .7rem 1.2rem;
+    border: 1px solid var(--border-subtle);
+    background: var(--surface);
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--text-muted);
+    transition: border-color .3s, color .3s, background .3s;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .service-pill::before { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+  .service-pill:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+  .about-meta {
+    margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex; flex-direction: column; gap: .6rem;
+  }
+  .meta-item { font-size: .82rem; color: var(--text-muted); display: flex; gap: .8rem; align-items: flex-start; }
+  .meta-item strong { color: var(--gold); min-width: 70px; font-weight: 400; }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--bg2); padding: 7rem 4rem; }
+  .gallery-header { max-width: 1200px; margin: 0 auto 3.5rem; }
+  .gallery-filters {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+  }
+  .filter-btn {
+    padding: .5rem 1.5rem;
+    background: var(--surface); border: 1px solid var(--border-subtle);
+    color: var(--text-muted); font-family: 'Outfit', sans-serif;
+    font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+    cursor: pointer; transition: .3s;
+  }
+  .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .gallery-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 280px;
+    gap: 12px;
+  }
+  .gallery-item {
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--bg3);
+  }
+  .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .gallery-item:nth-child(4) { grid-column: 3; grid-row: 2 / 4; }
+  .gallery-item:nth-child(7) { grid-column: 1 / 3; }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s ease;
+    filter: brightness(.9) contrast(1.05);
+  }
+  .gallery-item:hover img { transform: scale(1.07); }
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 50%);
+    opacity: 0; transition: opacity .4s;
+    display: flex; align-items: flex-end; padding: 1.5rem;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay-text { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+  /* ── SERVICES FULL ── */
+  #services { max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    margin-top: 4rem;
+    border: 1px solid var(--border-subtle);
+  }
+  .service-card {
+    padding: 3rem 2.5rem;
+    background: var(--surface);
+    border-right: 1px solid var(--border-subtle);
+    transition: background .3s, box-shadow .3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold);
+    transform: scaleX(0); transition: transform .4s;
+  }
+  .service-card:hover { background: #fffdf9; box-shadow: 0 8px 32px rgba(156,122,82,0.10); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 300; color: rgba(156,122,82,0.2);
+    line-height: 1; margin-bottom: 1.5rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .service-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.8; }
+
+  /* ── PROCESS ── */
+  #process {
+    background: var(--bg2);
+    padding: 7rem 4rem;
+  }
+  .process-inner { max-width: 1200px; margin: 0 auto; }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 4rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent);
+  }
+  .process-step { text-align: center; padding: 0 1.5rem; }
+  .step-num {
+    width: 56px; height: 56px; border: 1px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold);
+    background: var(--surface); position: relative; z-index: 1;
+    transition: background .3s, border-color .3s;
+  }
+  .process-step:hover .step-num { background: var(--gold-dim); border-color: var(--gold); }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--text); margin-bottom: .6rem;
+  }
+  .step-desc { font-size: .82rem; color: var(--text-muted); }
+
+  /* ── TESTIMONIAL ── */
+  #testimonial {
+    padding: 7rem 4rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #fdfaf6 0%, #f5ede0 100%);
+  }
+  .testimonial-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem; line-height: .8;
+    color: var(--gold); opacity: .25;
+    display: block; margin-bottom: -2rem;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-style: italic; font-weight: 300;
+    color: var(--text); line-height: 1.5; margin-bottom: 2rem;
+  }
+  .quote-author { font-size: .72rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg2); padding: 7rem 4rem; }
+  .contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 6rem; align-items: start;
+  }
+  .contact-info p { color: var(--text-muted); margin: 1.5rem 0 2.5rem; }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 36px; height: 36px; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: var(--gold); font-size: .9rem;
+  }
+  .contact-detail-text { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+  .contact-detail-text strong { display: block; color: var(--text); font-weight: 400; font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; margin-bottom: .2rem; }
+
+  /* Form */
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: .5rem; }
+  .form-group label { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text);
+    padding: .9rem 1.2rem;
+    font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 300;
+    outline: none; transition: border-color .3s, box-shadow .3s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(156,122,82,0.08);
+  }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  .form-group select option { background: var(--surface); color: var(--text); }
+  .form-submit {
+    background: var(--gold); color: #fff;
+    padding: 1rem 3rem; border: none; cursor: pointer;
+    font-family: 'Outfit', sans-serif; font-size: .75rem; font-weight: 500;
+    letter-spacing: .2em; text-transform: uppercase;
+    transition: background .3s, transform .2s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg3);
+    border-top: 1px solid var(--border-subtle);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 300;
+    letter-spacing: .2em; color: var(--gold); text-transform: uppercase;
+  }
+  .footer-copy { font-size: .72rem; letter-spacing: .1em; color: var(--text-dim); }
+  .footer-social { display: flex; gap: 1.2rem; }
+  .footer-social a {
+    font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none; transition: color .3s;
+  }
+  .footer-social a:hover { color: var(--gold); }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    section, #about, #services, #process, #testimonial, #contact { padding: 5rem 1.5rem; }
+    .stats-bar { padding: 2rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { max-width: 100%; aspect-ratio: 4/3; }
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr; grid-auto-rows: 220px;
+    }
+    .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: auto; }
+    .gallery-item:nth-child(4) { grid-column: auto; grid-row: auto; }
+    .gallery-item:nth-child(7) { grid-column: 1 / 3; }
+    .services-grid { grid-template-columns: 1fr; gap: 0; }
+    .service-card { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .process-steps::before { display: none; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; padding: 2.5rem 1.5rem; }
+    .about-services { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(4),
+    .gallery-item:nth-child(7) { grid-column: 1; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 1rem 0; }
+    .stats-bar { flex-direction: column; align-items: center; }
+    .process-steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>Shaan</span> Design</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Quote</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" onclick="toggleMenu()">✕</span>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#gallery" onclick="toggleMenu()">Portfolio</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#process" onclick="toggleMenu()">Process</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Guwahati's Premier Design Studio</div>
+    <h1 class="hero-title">Where Space Becomes <em>Art</em></h1>
+    <p class="hero-tagline">Crafting immersive interiors, striking exteriors, and serene landscapes that reflect who you are.</p>
+    <div class="hero-actions">
+      <a href="#gallery" class="btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn-ghost">Free Consultation</a>
+    </div>
+  </div>
+  <div class="scroll-ind">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number">7+</div><div class="stat-label">Years Experience</div></div>
+  <div class="stat"><div class="stat-number">120+</div><div class="stat-label">Projects Completed</div></div>
+  <div class="stat"><div class="stat-number">3</div><div class="stat-label">Design Disciplines</div></div>
+  <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Client Satisfaction</div></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-img-frame">
+        <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_00_58_PM.jpeg" alt="Shaan Design Interior" onerror="this.style.background='#1e1e1e';this.style.display='block'">
+      </div>
+      <div class="about-accent"></div>
+      <div class="about-accent2"></div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">About the Studio</div>
+      <h2 class="section-title">Kaushik Kakati — <em>Design Visionary</em></h2>
+      <p>With a passion for transforming raw spaces into curated environments, Kaushik Kakati founded Shaan Design with a singular vision — to bring world-class design sensibilities to Assam's growing residential and commercial landscape.</p>
+      <p>Every project is approached as a unique narrative, blending functionality with aesthetic excellence. From intimate bedrooms to grand commercial lobbies, we craft spaces that breathe, inspire, and endure.</p>
+      <div class="about-services">
+        <div class="service-pill">Interior Design</div>
+        <div class="service-pill">Exterior Design</div>
+        <div class="service-pill">Landscaping</div>
+        <div class="service-pill">3D Visualization</div>
+        <div class="service-pill">Residential</div>
+        <div class="service-pill">Commercial</div>
+      </div>
+      <div class="about-meta">
+        <div class="meta-item"><strong>Phone</strong> +91 9707153793 &nbsp;|&nbsp; +91 9954940133</div>
+        <div class="meta-item"><strong>Email</strong> @shaandesign.in</div>
+        <div class="meta-item"><strong>Location</strong> Vill/PO Bhattapara, Kamrup(M), Guwahati, Assam – Kamakhya</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Spaces We've <em>Crafted</em></h2>
+    <div class="gallery-filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">Interior</button>
+      <button class="filter-btn">Bedroom</button>
+      <button class="filter-btn">Living</button>
+      <button class="filter-btn">Kitchen</button>
+    </div>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_00_57_PM.jpeg" alt="Living Room Design">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Living Room</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_00_58_PM__1_.jpeg" alt="Bedroom Design">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Bedroom Suite</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_00_59_PM.jpeg" alt="Dressing Area">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Dressing Area</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_01_00_PM.jpeg" alt="Wardrobe Design">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Wardrobe</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_01_00_PM__1_.jpeg" alt="Kitchen Design">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Modern Kitchen</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_01_01_PM.jpeg" alt="Open Plan">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Open Plan Living</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="/mnt/user-data/uploads/WhatsApp_Image_2026-05-16_at_10_00_57_PM__1_.jpeg" alt="Dining Room">
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Dining Space</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">Our <em>Expertise</em></h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Interior Design</div>
+      <p class="service-desc">Complete interior transformations for residential and commercial spaces. From concept development and space planning to material selection, furniture curation, and final execution — we handle every layer of your interior story.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Exterior Design</div>
+      <p class="service-desc">Facades that command attention. We design exteriors that are architecturally coherent, contextually appropriate, and visually arresting — from elevation finishes and cladding to entry sequences and boundary treatments.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Landscaping</div>
+      <p class="service-desc">Thoughtfully designed outdoor environments that extend your living and working spaces. Gardens, terraces, courtyards, and green corridors conceived as an integrated part of the overall design vision.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-inner">
+    <div class="reveal">
+      <div class="section-tag">How We Work</div>
+      <h2 class="section-title">Our <em>Process</em></h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery</div>
+        <p class="step-desc">We begin with a deep conversation — understanding your vision, lifestyle, budget, and timeline.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Concept Design</div>
+        <p class="step-desc">Mood boards, spatial layouts, and 3D visualizations bring the concept to life before a single nail is hammered.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Development</div>
+        <p class="step-desc">Detailed drawings, material schedules, and vendor coordination ensure flawless execution on site.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Handover</div>
+        <p class="step-desc">A meticulous final walk-through ensures every detail meets the design intent before you move in.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section id="testimonial">
+  <div class="testimonial-inner reveal">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">Shaan Design transformed our home beyond what we imagined possible. The attention to detail, the quality of execution, and the warmth of the team made the entire process an absolute joy.</p>
+    <div class="quote-author">— Satisfied Client, Guwahati</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Let's Build <em>Together</em></h2>
+      <p>Ready to reimagine your space? Reach out for a free consultation. We'd love to hear about your project.</p>
+      <div class="contact-detail">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail-text">
+          <strong>Phone</strong>
+          +91 9707153793<br>+91 9954940133
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">🌐</div>
+        <div class="contact-detail-text">
+          <strong>Instagram / Web</strong>
+          @shaandesign.in
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail-text">
+          <strong>Address</strong>
+          Vill/PO Bhattapara, Dist Kamrup (M)<br>Kamakhya, Guwahati, Assam
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Rahul" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Sharma">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="rahul@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+91 XXXXX XXXXX">
+      </div>
+      <div class="form-group">
+        <label>Service Required</label>
+        <select>
+          <option value="">Select a service…</option>
+          <option>Interior Design – Residential</option>
+          <option>Interior Design – Commercial</option>
+          <option>Exterior Design</option>
+          <option>Landscaping</option>
+          <option>Full Home Renovation</option>
+          <option>3D Visualization Only</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Project</label>
+        <textarea placeholder="Brief description of your space, timeline, and any specific requirements…"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Enquiry →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Shaan Design</div>
+  <div class="footer-copy">© 2025 Shaan Design. All rights reserved. | Guwahati, Assam</div>
+  <div class="footer-social">
+    <a href="#">Instagram</a>
+    <a href="#">WhatsApp</a>
+    <a href="#">shaandesign.in</a>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Intersection observer for reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Gallery filter (visual only)
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Form submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#4a7c59';
+  setTimeout(() => {
+    btn.textContent = 'Send Enquiry →';
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+
+// Image fallback — warm light placeholder
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('error', function() {
+    this.style.cssText = 'width:100%;height:100%;object-fit:cover;background:linear-gradient(135deg,#e8ddd0,#d4c4b0);display:block';
+    this.alt = '';
+  });
+});
+</script>
+</body>
+</html>
+    
+
+
+
